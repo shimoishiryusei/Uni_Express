@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var helloRouter = require('./routes/hello');
+var notesRouter = require('./routes/notes');
 
 var app = express();
 
@@ -14,6 +15,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use('/hello', helloRouter);
+app.use('/notes', notesRouter);
 
 app.use(logger('dev'));
 app.use(express.json());
