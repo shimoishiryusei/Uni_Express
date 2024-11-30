@@ -1,31 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
-const responseObjectDataAll = {
-    textObject1:{
-        id: 1,
-        title: 'ノート１のタイトルです',
-        subTitle: 'ノート１のサブタイトルです',
-        bodyText: 'ノート１の本文です'
-    },
-    textObject2:{
-        id: 2,
-        title: 'ノート２のタイトルです',
-        subTitle: 'ノート２のサブタイトルです',
-        bodyText: 'ノート２の本文です'
-    },
-};
+const {MongoClient} = require('mongodb');
+const uri = "mongodb+srv://2301315024pm:<db_password>@cluster0.bslco.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const client = new MongoClient(uri);
 
-/** 
- * メモを全権取得するAPT
- * @returns {Object[]} data
- * @returns {number} data.id - メモのID
- * @returns {string} data.title - メモのタイトル
- * @returns {string} data.text - メモの本文
- */
-router.get('/', function(req, res, next) {
-    // メモの全データを返す
-    res.json(responseObjectDataAll);
+router.get('/', async (req, res) => {
+    const database = client.db('notes');
+    const notes = database.collection('notes');
+
+    const query = {id: 2};
+    const note = await notes.findOne(query);
+
+    res.json(note.title);
 })
 
 module.exports = router;
