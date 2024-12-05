@@ -12,8 +12,6 @@ router.get('/', async (req, res) => {
     
     request({ url: apiUrl, encoding: null }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        // Content-Typeヘッダーを画像形式に設定
-        res.set('Content-Type', response.headers['content-type']);
         // 画像データをそのままクライアントに送信
         res.send(body);
       } 
